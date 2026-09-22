@@ -7,9 +7,22 @@ owner: ca-scenario
 analysis_result: VERIFIED
 ---
 
+
 # <business process>
 
+## Owning Domain
+
+`DOMAIN-...`
+
+## Owning Capability / Scenario
+
+```text
+CAPABILITY-...
+SCENARIO-...
+```
+
 ## 业务目标
+
 
 ## 开始边界
 
@@ -42,8 +55,18 @@ analysis_result: VERIFIED
 | Activity | Business Object | Lifecycle | Transition |
 |---|---|---|---|
 
+
 ## Data Impact
 
+## Cross-domain Collaboration
+
+| Activity | Collaborating Domain | Business Action | Technical Evidence |
+|---|---|---|---|
+| ... | `DOMAIN-...` | ... | ... |
+
+Do not change Process/Scenario ownership simply because this Process calls another Domain.
+
 ## 异常与补偿
+
 
 ## Evidence

@@ -261,3 +261,26 @@ Before publication confirm:
 - no duplicate reverse facts manually maintained
 - embedded IDs are addressable
 - challenges have explicit disposition
+
+
+## Business hierarchy consistency
+
+Default business hierarchy:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+```
+
+Validate:
+
+- every Subdomain belongs to exactly one Domain;
+- every Capability belongs to one Domain and, when used, one Subdomain;
+- every Scenario belongs to one Capability;
+- every Process belongs to a Scenario;
+- no convenience relation is mistaken for hierarchical ownership.
+
+Reverse/cross-level relations may be derived for search and impact analysis, but they do not rewrite ownership.

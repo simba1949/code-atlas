@@ -275,3 +275,49 @@ AUDIT_FAILED
 ```
 
 with owner-routed findings.
+
+
+
+## Domain Responsibility Gate
+
+Treat as `BLOCKING` when:
+
+1. Domain ownership is justified primarily by "this operation updates this table/object".
+2. A business transaction such as withdraw/refund/consume/recharge is assigned to an Account Domain solely because it changes balance.
+3. Atomic account debit/credit/freeze/unfreeze is modeled as an independent Funds Transaction without independent transaction identity/lifecycle.
+4. Settlement routing/clearing/payout fulfillment is modeled as an Account operation because it eventually changes account state.
+5. A Scenario is split or moved across Domains solely because it calls Account/Settlement/Risk services.
+6. Ambiguous `入账` is published without distinguishing business transaction from account posting.
+7. Account-level risk restriction and independent risk-decision responsibility are merged without evidence.
+8. Employee/site/merchant account owner types are promoted to separate Domains without stable business-responsibility evidence.
+
+For financial systems, use the diagnostic:
+
+```text
+账户管状态
+交易管意图
+结算管履约
+```
+
+The diagnostic is not a fixed ontology; audit the source evidence.
+
+## Business Topology Gate
+
+Treat the following as `BLOCKING`:
+
+1. Domain identity primarily mirrors Project/Module/package without stable business-responsibility evidence.
+2. A Domain with multiple clear responsibility clusters skipped Subdomain Evaluation.
+3. Capability publication was not challenged against a full-scope Business Action Inventory.
+4. A workflow stage such as 受理 / 审核 / 拆分 / 推送 / 回写 was promoted as Capability without an independent business goal/result.
+5. Capability identity contains Project/module implementation wording without semantic necessity.
+6. Any confirmed Capability skipped Scenario Evaluation.
+7. Scenario identity was not derived from canonical Business Process Flow.
+8. Processes were duplicated as Capabilities because of code boundaries.
+9. Scenario Process Flow contains accidental duplicate Process references.
+10. Default HTML topology bypasses existing hierarchy levels with Domain→Scenario, Domain→Process or Capability→Process convenience edges.
+11. Domain ownership is inferred primarily from shared data mutation instead of stable business responsibility.
+
+There is no fixed number of Domains/Subdomains/Capabilities/Scenarios.
+
+Audit semantic justification and global convergence, not a preferred count.
+

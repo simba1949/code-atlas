@@ -42,3 +42,16 @@ proc-site-withdraw.md
 obj-withdraw-order.md
 lc-withdraw-order-main.md
 ```
+
+
+## Business Subdomain IDs
+
+Use:
+
+```text
+SUBDOMAIN-<domain>-<subdomain>
+```
+
+Capability IDs should not encode Subdomain location when reclassification would otherwise change an existing Capability identity.
+
+IDs express semantic identity, not Project/Module placement.

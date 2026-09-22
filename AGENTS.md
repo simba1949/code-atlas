@@ -352,7 +352,102 @@ If deeper nesting appears necessary, first consider:
 ---
 
 
-### 4.15 HTML Must Optimize Understanding, Not Decoration
+
+### 4.15 Business Topology Must Converge Before Publication
+
+Use:
+
+```text
+skills/code-atlas/references/business-topology-convergence.md
+```
+
+Mandatory discovery order:
+
+```text
+Business Actions
+→ Capability Convergence
+→ Subdomain Evaluation
+→ Domain Convergence
+→ Scenario Enumeration
+```
+
+Mandatory publication hierarchy:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+→ Execution Chain
+```
+
+Rules:
+
+- Subdomain publication is optional; Subdomain Evaluation is mandatory.
+- Every Capability must undergo Scenario Evaluation.
+- Workflow stages must be challenged as Process candidates before Capability promotion.
+- Project/module names must not leak into business identity by default.
+- Freeze the complete Business Topology before final Markdown/HTML publication.
+- The default HTML map must not bypass intermediate hierarchy levels.
+
+
+### 4.16 Business Data Mutation Does Not Define Domain Ownership
+
+Use:
+
+```text
+skills/code-atlas/references/domain-responsibility-boundaries.md
+```
+
+A Domain owns a business responsibility, not every operation that mutates its data.
+
+Mandatory ownership questions:
+
+```text
+State
+→ what current business state is authoritative here?
+
+Intent
+→ what business transaction/request explains the change?
+
+Fulfillment
+→ what obligation is actually completed here?
+```
+
+For financial systems, use this diagnostic:
+
+```text
+Funds Account
+→ 账户管状态
+
+Funds Transaction
+→ 交易管意图
+
+Funds Settlement
+→ 结算管履约
+```
+
+Examples:
+
+```text
+freeze / unfreeze / debit / credit
+→ Account responsibility
+
+withdraw / recharge / consume / refund
+→ Transaction responsibility
+
+route / clearing / payout fulfillment
+→ Settlement responsibility
+```
+
+unless source evidence proves otherwise.
+
+Cross-domain calls do not transfer Scenario ownership.
+
+### 4.17 HTML Must Optimize Understanding, Not Decoration
+
+
 
 `ca-visual` must produce an interactive business-first Atlas.
 
@@ -456,6 +551,8 @@ Current decisions:
 | `ADR-013` | Superseded by ADR-014 |
 | `ADR-014` | Semantic identity rules stay intentionally lightweight |
 | `ADR-015` | HTML Atlas is business-first, interactive, searchable, and progressively reveals technology |
+| `ADR-016` | Business topology converges bottom-up before top-down publication |
+| `ADR-017` | Domain ownership follows business responsibility, not shared data mutation |
 
 Before changing one of these decisions, read the ADR.
 

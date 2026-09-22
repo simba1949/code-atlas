@@ -3,7 +3,7 @@ name: code-atlas
 description: >
   Orchestrate a full Code Atlas analysis of one or more codebases. Use when the user
   wants a project/business atlas covering technical structure, Business Domains,
-  Capabilities, Scenarios, Processes, Business Objects, Lifecycles, Execution Chains,
+  Subdomains, Capabilities, Scenarios, Processes, Business Objects, Lifecycles, Execution Chains,
   Canonical Markdown, and an HTML viewer, all grounded in current code evidence.
 ---
 
@@ -41,6 +41,7 @@ Chinese shorthand:
 10. Tests are auxiliary evidence only and never production entries/chains by default.
 11. Canonical Atlas output belongs to the Analysis Workspace Root, not to an individual Project.
 12. Every semantic entity must pass the shared Semantic Canonicalization Protocol before publication.
+13. Business topology is discovered bottom-up and published top-down: Business Actions → Capabilities → Subdomains → Domains → Scenario Enumeration.
 
 
 
@@ -83,7 +84,7 @@ Use:
 
 - `ca-code-intel` — discover code-intelligence providers and build Fact Inventory.
 - `ca-project` — own System / Project / Module / technical-reference knowledge.
-- `ca-business` — own Domain / Capability / Business Object / Lifecycle.
+- `ca-business` — own Domain / Subdomain / Capability / Business Object / Lifecycle.
 - `ca-scenario` — own Scenario / Process / Sub-process / Step.
 - `ca-chain` — own Execution Chain / Common Chain.
 - `ca-knowledge` — validate IDs, references, ownership and reverse relations.
@@ -169,34 +170,85 @@ Invoke `ca-project`.
 
 Build technical topology and references without inventing business domains from module/package names.
 
-### 4. Business model
+
+### 4. Business topology convergence
 
 Invoke `ca-business`.
 
-Build candidates then confirm:
+Use:
 
-- Business Domain
-- Capability
-- Business Object
-- Lifecycle
+```text
+references/business-topology-convergence.md
+references/domain-responsibility-boundaries.md
+```
 
-Only confirmed entities may later be published.
+Required order:
 
-### 5. Scenario / Process model
+```text
+Full-scope Business Action Inventory
+→ Capability Convergence
+→ Mandatory Subdomain Evaluation
+→ Domain Convergence
+```
+
+Do not publish a Domain directly from a Project/package.
+
+Responsibility ownership must be resolved before Domain publication:
+
+```text
+current state ownership
+vs
+business transaction/intent ownership
+vs
+obligation fulfillment ownership
+```
+
+A Domain must not own a Capability merely because that Capability mutates its data.
+
+Do not preserve workflow stages as separate Capabilities without an independent business goal/result.
+
+Produce one analysis-only topology skeleton:
+
+```text
+Domain
+├── Subdomain [optional]
+│   ├── Capability
+│   └── Capability
+└── Capability
+```
+
+### 5. Scenario enumeration and Process model
 
 Invoke `ca-scenario`.
 
-Build and challenge:
+Every confirmed Capability must undergo Scenario Evaluation.
 
-- Scenario
-- Scenario Process Flow
-- Process
-- Sub-process
-- Step
+Required order:
 
-Do not use HTTP/RPC/MQ/Job boundaries as business boundaries.
+```text
+Capability
+→ enumerate candidate paths
+→ trace/compare Business Process Flow
+→ canonicalize Scenarios
+→ model Processes
+```
+
+A Capability may have one or multiple Scenarios, but it may not silently skip Scenario Evaluation.
+
+Before technical tracing, freeze one complete Business Topology:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+```
+
+If this topology is not globally coherent, return to `ca-business` / `ca-scenario`.
 
 ### 6. Technical trace
+
 
 Invoke `ca-chain`.
 
@@ -239,9 +291,10 @@ Re-run the shared Semantic Canonicalization Protocol for cross-Skill duplicates/
 
 Convergence requires stability of:
 
-- Domain / Capability
+- Domain / Subdomain / Capability topology
 - Business Object
 - Lifecycle / Transition
+- Scenario Evaluation for every Capability
 - Scenario set
 - Process boundaries
 - Scenario Process Flow

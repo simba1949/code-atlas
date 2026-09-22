@@ -134,6 +134,35 @@ Domain
 
 Projects/modules are secondary context, not the primary home structure.
 
+
+## Default Business Topology Integrity
+
+The main business topology must follow:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+```
+
+Subdomain is a first-class visual grouping when present.
+
+Do not add default convenience edges that flatten the topology:
+
+```text
+Domain → Scenario
+Domain → Process
+Capability → Process
+```
+
+Cross-level derived relations are allowed only in search results, reverse navigation, impact/context panels, or explicit "show related" modes.
+
+They must not appear as parent/child structure in the default Business Map.
+
+When a Domain has Subdomains, the Business Map must make them visually obvious before Capability cards.
+
 ## Capability view
 
 Show first:
@@ -145,6 +174,36 @@ Show first:
 - result/unresolved state.
 
 Do not lead with Controllers/Services/RPCs.
+
+
+## Domain ownership vs collaboration
+
+When a Scenario/Process collaborates across Domains, visually distinguish:
+
+```text
+Owning Domain
+vs
+Collaborating Domain
+```
+
+Do not duplicate the same Scenario under each collaborating Domain.
+
+Preferred presentation:
+
+- Breadcrumb and primary card use Owning Domain / Capability.
+- Cross-domain calls appear as side badges, swimlanes, or referenced nodes.
+- Hover/click may reveal collaborating Domain responsibility.
+- Search may find the Scenario from collaborating technical evidence, but navigation returns to the owning business path.
+
+For financial-system flows, a withdrawal may visually show:
+
+```text
+Funds Transaction [owner]
+   ├── Funds Account [freeze/finalize]
+   └── Funds Settlement [payout]
+```
+
+without reclassifying withdrawal into the Account or Settlement Domain.
 
 ## Scenario view
 
@@ -284,6 +343,7 @@ Search is mandatory.
 Support business and technical terms:
 
 - business name;
+- Subdomain name;
 - canonical ID;
 - alias/source name;
 - Class;

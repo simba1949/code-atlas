@@ -31,6 +31,8 @@ Accepted ADRs are architectural constraints until explicitly superseded by a new
 | [ADR-013](./ADR-013-semantic-identity-contracts-govern-merge-split.md) | Superseded by ADR-014 | Earlier detailed Semantic Identity Contract model |
 | [ADR-014](./ADR-014-simplify-semantic-identity-rules.md) | Accepted | Semantic identity rules stay intentionally lightweight |
 | [ADR-015](./ADR-015-html-atlas-business-first-interactive-searchable.md) | Accepted | HTML Atlas is business-first, interactive, searchable, and progressively reveals technology |
+| [ADR-016](./ADR-016-business-topology-convergence-before-publication.md) | Accepted | Business topology converges bottom-up before top-down publication |
+| [ADR-017](./ADR-017-domain-ownership-follows-business-responsibility.md) | Accepted | Domain ownership follows business responsibility, not shared data mutation |
 
 ## Changing an Accepted Decision
 

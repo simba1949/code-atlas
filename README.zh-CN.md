@@ -188,17 +188,39 @@ ca-visual
 
 ## 安装
 
-### 项目级安装
+### 交互式安装
 
 ```bash
-npx skills add simba1949/code-atlas --skill '\*' -a claude-code -a codex -y
+npx skills add simba1949/code-atlas
+```
+
+### 安装完整 Code Atlas 到 Codex
+
+```bash
+npx skills add simba1949/code-atlas --skill '*' -a codex -y
+```
+
+### 安装完整 Code Atlas 到 Claude Code
+
+```bash
+npx skills add simba1949/code-atlas --skill '*' -a claude-code -y
+```
+
+### 同时安装到 Claude Code 与 Codex
+
+推荐：
+
+```bash
+npx skills add simba1949/code-atlas --skill '*' -a claude-code -a codex -y
 ```
 
 ### 全局安装
 
 ```bash
-npx skills add simba1949/code-atlas --skill '\*' -a claude-code -a codex -g -y
+npx skills add simba1949/code-atlas --skill '*' -a claude-code -a codex -g -y
 ```
+
+`--skill '*'` 只表示安装 `simba1949/code-atlas` 仓库中的全部 Skill，不会影响用户其他 Skill。
 
 ## 更新
 
@@ -279,6 +301,10 @@ workspace/
 - DB / RPC / MQ / Job / External System
 - 业务到代码的下钻关系
 - 代码到业务的反向导航
+
+
+
+对于资金类系统，Code Atlas 会特别区分“账户状态”“资金交易意图”“资金履约”三类责任，避免因为提现/退款最终修改余额，就把整个业务错误归到账户域。一个典型判定口诀是：**账户管状态，交易管意图，结算管履约**；最终边界仍以源码证据为准。
 
 ## License
 

@@ -164,6 +164,7 @@ When candidates merge, preserve:
 ```yaml
 identity:
   - stable_business_responsibility
+  - authoritative_business_objects_or_results
   - business_boundary
   - coherent_capabilities
 
@@ -173,10 +174,13 @@ ignore_differences:
   - package
   - team
   - database
+  - shared_data_mutation
+  - downstream_or_upstream_service_call
 
 promotion:
   - stable_business_responsibility_is_proven
   - capability_cluster_is_supported_by_evidence
+  - ownership_is_not_inferred_only_from_which_data_is_modified
 ```
 
 Anti-rule:
@@ -184,7 +188,33 @@ Anti-rule:
 ```text
 Project != Domain
 Module  != Domain
+
+Data mutation != Domain ownership
+Service call   != Domain ownership
 ```
+
+### Domain Responsibility Test
+
+Ask:
+
+```text
+What does this Domain authoritatively own?
+
+Current state?
+Business intent/transaction?
+Fulfillment of an obligation?
+```
+
+When a business flow crosses several Domains, keep the end-to-end Scenario under the Domain that owns
+the business goal. Other Domains remain collaborators.
+
+For financial-system analysis, use:
+
+```text
+domain-responsibility-boundaries.md
+```
+
+as a diagnostic example.
 
 ---
 

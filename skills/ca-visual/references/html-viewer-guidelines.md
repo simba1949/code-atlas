@@ -253,6 +253,31 @@ Table
 
 ---
 
+
+## 3.1 Topology Integrity
+
+The default business hierarchy is:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+```
+
+When Subdomains exist, render them as an explicit grouping layer.
+
+Never flatten the primary map with:
+
+```text
+Domain → Scenario
+Domain → Process
+Capability → Process
+```
+
+These cross-level relationships may appear only in search, context, reverse navigation or impact views.
+
 ## 4. Home / Business Map
 
 The home page must answer:
@@ -334,6 +359,37 @@ Default content:
 Do not lead with technical implementation.
 
 ---
+
+
+## 6.1 Ownership vs Collaboration
+
+The viewer must distinguish:
+
+```text
+business ownership
+from
+cross-domain collaboration
+```
+
+A Scenario is displayed under exactly one owning Capability/Domain.
+
+When Processes invoke other Domains:
+
+- keep the owning business path in the main flow;
+- show collaborator Domain badges/lanes;
+- do not clone the Scenario into collaborator Domains;
+- do not flatten ownership hierarchy.
+
+Example:
+
+```text
+Withdrawal [Funds Transaction owner]
+   → [Funds Account] Freeze
+   → [Funds Settlement] Payout
+   → [Funds Account] Finalize
+```
+
+The visual should make collaboration obvious while ownership stays stable.
 
 ## 7. Scenario View — Primary Flow Page
 

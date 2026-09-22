@@ -1,20 +1,23 @@
 ---
 name: ca-business
 description: >
-  Model Code Atlas business knowledge from verified code evidence: Business Domains,
-  Capabilities, Business Objects, Lifecycles, and core-table business semantics.
-  Use strict promotion gates so tables, DTOs, enums, method names, or module names are
-  not mistaken for business entities or state machines.
+  Converge Code Atlas business topology from verified code evidence. Own Business
+  Domains, optional Business Subdomains, Capabilities, Business Objects, Lifecycles
+  and core-table semantics. Use full-scope Business Action discovery before
+  Capability/Subdomain/Domain publication so technical projects and workflow stages
+  are not mistaken for business boundaries.
 ---
 
 # ca-business
 
 ## Mission
 
-Own the stable business semantics beneath Scenarios:
+Own:
 
 ```text
 Business Domain
+  ↓
+Business Subdomain [optional]
   ↓
 Capability
 
@@ -27,11 +30,23 @@ State
 State Transition
 ```
 
+Core discovery direction:
+
+```text
+Business Actions
+→ Capability Convergence
+→ Subdomain Grouping
+→ Domain Convergence
+```
+
+Do not start by turning Projects/packages into Domains.
+
 ## Ownership
 
 You own:
 
 - Business Domain
+- Business Subdomain
 - Capability
 - Business Object
 - Lifecycle
@@ -48,19 +63,18 @@ You do not own:
 - Execution Chain
 - technical project structure
 
-
-
-
-## Shared semantic rules
+## Required references
 
 Use:
 
 ```text
+../code-atlas/references/business-topology-convergence.md
+../code-atlas/references/domain-responsibility-boundaries.md
 ../code-atlas/references/semantic-canonicalization-protocol.md
 ../code-atlas/references/semantic-identity-rules.md
 ```
 
-For owned knowledge, decide only:
+Semantic outcomes remain:
 
 ```text
 MERGE
@@ -69,81 +83,261 @@ UNRESOLVED
 REJECT
 ```
 
-Key local rules:
+## Step 1 — Full-scope Business Action Inventory
 
-- Domain identity comes from stable business responsibility, not Project/Module.
-- Capability identity comes from stable business function and result.
-- Business Object identity comes from real business identity, not Class/Table count.
-- Lifecycle identity comes from Business Object + business state dimension.
-- Business Rules stay embedded by default; do not create a standalone rule taxonomy.
-- Business relationships use direct business wording; do not require a large fixed relation-kind taxonomy.
+Before final Domain/Capability publication, inspect the full selected scope and build an analysis-only inventory of business actions.
 
-Preserve aliases and evidence when knowledge is merged.
+Cover:
 
+- user/API/RPC operations;
+- Jobs/MQ/Callback business effects;
+- Business Object behavior;
+- state mutations;
+- important table writes;
+- rules/configuration affecting business behavior.
 
-## Evidence discipline
+Example:
 
-Use:
+```text
+开户
+启用
+停用
+冻结
+充值
+提现
+审核
+打款
+结算
+红冲
+对账
+```
 
-- Fact Inventory
-- source behavior
-- data reads/writes
-- state reads/writes
-- configuration
-- validated Execution Chain evidence
-- tests only as auxiliary evidence
+This inventory exists to prevent local-first modeling.
 
-Never promote a business entity from naming alone.
+Do not publish it as a Knowledge Entity.
 
-## Business Domain
-
-A Domain is a stable business boundary supported by related capabilities, objects, rules and behavior.
-
-Do not infer Domain solely from:
-
-- module
-- package
-- service name
-- database schema
-- team ownership
-
-Require a coherent business responsibility supported by code behavior.
-
-## Capability
+## Step 2 — Capability Convergence
 
 Definition:
 
-> 一个 Business Domain 长期稳定提供的业务功能。
+> 一个长期稳定、具有独立业务目标和业务结果的业务功能。
 
-Examples:
-
-- 入账
-- 消费
-- 提现
-- 充值
-- 退款
-
-### Capability promotion gate
-
-Require a behavior cluster such as:
+Require:
 
 ```text
-entry/operation
+stable business goal
 +
 business behavior
 +
-Business Object or data effect
+Business Object/data effect
 +
 identifiable business result
 ```
 
-A single method named `withdraw()` is insufficient.
+### Mandatory Process-vs-Capability challenge
 
-Use the de-scenario test:
+Before promoting a Capability, ask:
 
-> Remove channel/role/object/settlement/path qualifiers. If the remainder is a stable standalone business function, it may be a Capability.
+> Is this only one stage inside a larger end-to-end business goal?
 
-Capability is embedded in Domain Markdown and still receives a stable ID.
+Strong Process smells:
+
+```text
+受理
+审核
+拆分
+推送
+回写
+回调
+结果同步
+失败检测
+```
+
+These words do not automatically mean Process, but they require explicit challenge.
+
+Example:
+
+```text
+账单接收
+打款单审核
+打款执行
+提现触发
+```
+
+must be tested as possible Processes of one Capability such as:
+
+```text
+COD 货款打款
+```
+
+Do not preserve implementation stages as Capabilities by default.
+
+### Technical-name smell
+
+A business Capability should normally not contain:
+
+- project name;
+- module name;
+- framework/service name.
+
+Example:
+
+```text
+余额批量核心记账（finance-balance-api）
+```
+
+must be challenged and renamed/converged based on business meaning.
+
+## Step 3 — Mandatory Subdomain Evaluation
+
+For every Domain candidate, answer:
+
+> Does it contain two or more stable internal business responsibility clusters?
+
+If yes, create embedded stable-ID Subdomains:
+
+```text
+SUBDOMAIN-<domain>-<subdomain>
+```
+
+If no, Domain may directly contain Capabilities.
+
+Do not infer Subdomain from Project, Module, package, database, team, or UI menu.
+
+Subdomain publication is optional.
+
+Subdomain Evaluation is not optional.
+
+## Step 4 — Domain Convergence
+
+Definition:
+
+> 当前分析范围内最大的稳定业务责任边界之一。
+
+Review all candidate Domains together.
+
+Challenge any Domain that is merely a Project, Business Object, one approval workflow, one execution stage, one technical subsystem, or a narrow source package.
+
+Merge candidate Domains when their Capabilities form one coherent long-lived responsibility and use Subdomains to preserve meaningful internal boundaries.
+
+There is no target Domain count.
+
+Domain proliferation is a review signal, not proof.
+
+
+## Step 4.1 — Responsibility Ownership Test
+
+Do not assign a Capability to a Domain because that Capability modifies the Domain's data.
+
+Classify ownership by:
+
+```text
+business goal
++
+authoritative Business Object/result
++
+lifecycle/result owned by the behavior
+```
+
+Use three questions:
+
+```text
+State
+→ What current business state is owned?
+
+Intent
+→ What business transaction/request explains the change?
+
+Fulfillment
+→ What obligation must actually be completed?
+```
+
+### Financial-system diagnostic
+
+For financial systems, test these candidate responsibilities separately:
+
+```text
+Funds Account Domain
+→ 钱属于谁、在哪里、有多少、当前能不能用
+
+Funds Transaction Domain
+→ 为什么这笔钱变化、当前是什么资金业务
+
+Funds Settlement Domain
+→ 已成立的资金义务如何从付款方履约到收款方
+```
+
+Short form:
+
+```text
+账户管状态
+交易管意图
+结算管履约
+```
+
+Typical classification:
+
+```text
+open / close account           → Funds Account
+enable / disable account       → Funds Account
+freeze / unfreeze balance      → Funds Account
+atomic debit / credit          → Funds Account
+
+withdraw / recharge            → Funds Transaction
+consume / refund / transfer    → Funds Transaction
+business credit transaction    → Funds Transaction
+
+settlement route               → Funds Settlement
+clearing                       → Funds Settlement
+payout fulfillment             → Funds Settlement
+settlement reversal/compensate → Funds Settlement
+```
+
+Do not treat this table as hard-coded truth.
+
+Source evidence may justify another model.
+
+### Mandatory ambiguity checks
+
+`入账` must be disambiguated:
+
+```text
+业务入账
+→ transaction with independent business identity/lifecycle
+→ Funds Transaction
+
+账户记账 / 贷记
+→ atomic balance posting
+→ Funds Account
+```
+
+`风控` must be disambiguated:
+
+```text
+account availability / freeze / permission control
+→ Funds Account
+
+independent cross-product risk decisioning
+→ possible independent Risk Domain
+```
+
+### Subject-owner rule
+
+```text
+employee account
+site account
+merchant account
+```
+
+do not automatically become three Domains.
+
+Evaluate whether they are:
+
+- Subdomains;
+- Scenario/context dimensions;
+- or one unified Account model with owner type.
+
+The same rule applies to employee/site/merchant transactions.
 
 ## Business Object
 
@@ -151,30 +345,15 @@ Capability is embedded in Domain Markdown and still receives a stable ID.
 
 Promotion requires:
 
-1. relatively stable business identity;
+1. stable business identity;
 2. meaningful business data/state;
-3. meaningful business behavior that reads or mutates it.
+3. meaningful behavior that reads or mutates it.
 
-Strong clusters may include:
-
-- primary table
-- domain/DO entity
-- repository
-- state/amount/type fields
-- create/submit/confirm/cancel behavior
-
-Do not promote:
-
-- DTO/VO/Request alone
-- generic context/result/page types
-- one ambiguous log/config/detail table
-- Java class merely because its name sounds business-like
-
-### Persistence mapping
+Do not use one class/table as one Business Object by default.
 
 A Business Object may map to multiple tables.
 
-Use roles:
+Persistence roles may include:
 
 ```text
 PRIMARY
@@ -188,147 +367,73 @@ CONFIG
 TECHNICAL
 ```
 
-Store authoritative direction:
+Store canonical direction:
 
 ```text
 Business Object → Table
 ```
 
-Do not manually maintain reverse `Table → Business Object` lists.
-
 ## Lifecycle
 
-Canonical Lifecycle belongs only to a Business Object.
+Lifecycle belongs to a Business Object.
 
 Promotion requires:
 
 1. confirmed Business Object;
 2. confirmed state dimension;
 3. confirmed state values;
-4. real state transitions supported by execution/write evidence.
+4. transition write/control-flow evidence for every published arrow.
 
-### Multiple dimensions
+Never infer transitions from enum ordering.
 
-Separate fields such as:
+Separate independent state fields into separate Lifecycle dimensions unless code proves otherwise.
+
+## Evidence discipline
+
+Use Fact Inventory, source behavior, data reads/writes, state reads/writes, configuration, validated chain evidence, and tests only as auxiliary evidence.
+
+No Evidence → No Semantic Change.
+
+## Output requirement
+
+Before handing topology to `ca-scenario`, produce one analysis-only topology skeleton:
 
 ```text
-status
-pay_status
-audit_status
+Domain
+├── Subdomain [optional]
+│   ├── Capability
+│   └── Capability
+└── Capability
 ```
 
-into separate Lifecycles unless code proves they form one dimension.
+Every Capability must have:
 
-### State does not imply Transition
+- business goal;
+- business result;
+- supporting evidence;
+- Domain;
+- optional Subdomain.
 
-Enum values alone are candidate states.
+Do not generate final Domain Markdown until full-scope convergence is complete.
 
-A state field alone is a candidate dimension.
-
-A transition requires real write/control-flow evidence.
-
-Never draw arrows merely because two enum values exist.
-
-### Partial lifecycle
-
-A Lifecycle may be confirmed even when only some transitions are found.
-
-Publish only verified transitions and explicitly state that no additional transitions were found in the current visible code range.
-
-## Direct vs indirect writes
-
-Distinguish:
-
-- project directly writes table/state;
-- project calls another service/RPC which performs the write.
-
-Never claim the caller project writes a table merely because the business effect occurs downstream.
-
-## Dual names
+## IDs
 
 Use:
 
 ```text
-source_name
-business_name
+DOMAIN-<domain>
+SUBDOMAIN-<domain>-<subdomain>
+CAPABILITY-<domain>-<capability>
+BUSINESS-OBJECT-<object>
+LIFECYCLE-<object>-<dimension>
+STATE-<object>-<dimension>-<state>
+TRANSITION-<object>-<dimension>-<from>-TO-<to>
 ```
 
-`source_name` must come from source/table/field/config/interface facts.
+Do not encode Project/Module into business identity by default.
 
-`business_name` may summarize verified behavior.
+## Handoff
 
-If business semantics are insufficient, keep a neutral label or unresolved description.
+Send confirmed Domains, Subdomains, Capabilities, Business Objects and Lifecycles to `ca-scenario`.
 
-## IDs
-
-Use complete names:
-
-```text
-DOMAIN-courier-wallet
-CAPABILITY-courier-wallet-withdraw
-BUSINESS-OBJECT-withdraw-order
-LIFECYCLE-withdraw-order-main
-STATE-withdraw-order-main-created
-TRANSITION-withdraw-order-main-created-TO-processing
-```
-
-Do not encode project/module into business IDs by default.
-
-## Markdown ownership
-
-### Domain
-
-Store:
-
-- positioning
-- boundaries
-- Capabilities
-- core Business Objects
-- evidence
-
-Do not store Scenario lists manually; derive from Scenario → Capability.
-
-### Business Object
-
-Store:
-
-- identity
-- semantics
-- important fields
-- persistence mapping and Data Roles
-- evidence
-
-### Lifecycle
-
-Store:
-
-- `business_object` parent reference
-- state dimension/storage
-- states
-- transitions
-- transition evidence
-- derived diagram
-
-Do not manually store Process/Scenario reverse references.
-
-## Challenge protocol
-
-If `ca-chain` or `ca-scenario` discovers new state/object evidence:
-
-1. inspect direct evidence;
-2. ACCEPT, REJECT or mark UNRESOLVED;
-3. update only owned knowledge;
-4. do not change semantics without new evidence.
-
-## Completion gate
-
-Before confirming business modeling:
-
-- Domains are behavior-backed
-- Capabilities pass promotion gate
-- Business Objects are not table/class aliases
-- Lifecycle dimensions are explicit
-- every State Transition is code-proven
-- table roles are evidence-backed
-- IDs are stable and business-oriented
-- no Scenario/Process ownership has leaked into this skill
+Every confirmed Capability must then undergo Scenario Evaluation before publication.

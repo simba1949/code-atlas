@@ -233,6 +233,97 @@ skills/code-atlas/references/semantic-identity-rules.md
 Do not introduce a larger identity meta-model unless real analysis repeatedly proves it is necessary.
 
 
+
+## 6.3 Business Topology Convergence
+
+Before final Domain/Capability publication, Code Atlas performs one global topology convergence.
+
+Discovery runs bottom-up:
+
+```text
+Business Actions
+→ Capability Candidates
+→ Capability Convergence
+→ Subdomain Grouping
+→ Domain Convergence
+→ Scenario Enumeration
+```
+
+Publication runs top-down:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+→ Execution Chain
+```
+
+Subdomain publication is optional.
+
+Subdomain Evaluation is mandatory for every Domain.
+
+Every Capability must undergo Scenario Evaluation.
+
+A workflow stage such as 受理 / 审核 / 拆分 / 推送 / 回写 must be challenged as a Process candidate before it can become a Capability.
+
+The complete protocol is:
+
+```text
+skills/code-atlas/references/business-topology-convergence.md
+```
+
+
+## 6.4 Domain Responsibility Ownership
+
+Business Domain ownership is not determined by which data is modified.
+
+Use:
+
+```text
+skills/code-atlas/references/domain-responsibility-boundaries.md
+```
+
+Ask:
+
+```text
+State
+→ which Domain owns the authoritative current state?
+
+Intent
+→ which Domain owns the business transaction/request and its lifecycle?
+
+Fulfillment
+→ which Domain owns completion of the resulting obligation?
+```
+
+For financial systems, the canonical diagnostic is:
+
+```text
+资金账户域
+→ 钱属于谁、在哪里、有多少、当前能不能用
+
+资金交易域
+→ 为什么钱发生变化、当前是什么资金业务
+
+资金结算域
+→ 已成立的资金义务如何从付款方履约到收款方
+```
+
+Short form:
+
+```text
+账户管状态
+交易管意图
+结算管履约
+```
+
+This prevents misclassification such as placing `提现` in the Account Domain merely because
+withdrawal changes wallet balance.
+
+Cross-domain collaboration is explicit, but one Scenario still has one owning Capability/Domain.
+
 ## 7. Capability
 
 > 一个 Business Domain 长期稳定提供的业务功能。

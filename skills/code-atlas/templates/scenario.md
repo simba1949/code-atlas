@@ -1,33 +1,73 @@
 ---
 id: SCENARIO-<domain>-<capability>-<scenario>
 type: SCENARIO
-source_name: <source selector/name>
-business_name: <business path>
+business_name: <scenario name>
 owner: ca-scenario
-analysis_result: VERIFIED
-capability: CAPABILITY-<domain>-<capability>
+analysis_result: VERIFIED|PARTIAL|UNRESOLVED
+capability: CAPABILITY-...
 ---
 
-# <business path>
 
-## 场景说明
+# <Scenario>
 
-## 路径选择依据
+## Owning Domain / Capability
 
-## 适用条件
+```text
+DOMAIN-...
+→ CAPABILITY-...
+```
 
-## 参与方
+The Scenario remains owned by this Capability even when Processes collaborate with other Domains.
 
-## 涉及 Business Object
+## Business Path
 
-## Scenario Process Flow
 
-## Process 编排
+<What stable business path this Scenario represents.>
 
-## Process Relations
+## Path Selection
 
-> 每条 Process relation 必须有自己的 Evidence。
+<Code-backed selectors that discover this path.>
 
-## 分支
+## Canonical Process Flow
+
+```text
+PROCESS-A
+→ PROCESS-B
+→ PROCESS-C
+```
+
+For every edge, retain evidence in the sections below.
+
+## Business Objects
+
+- ...
+
+## Business Rules / Conditions
+
+- ...
+
+
+## Lifecycle Impact
+
+- ...
+
+## Cross-domain Collaboration
+
+| Process / Step | Collaborating Domain | Capability / Action | Purpose |
+|---|---|---|---|
+| ... | `DOMAIN-...` | ... | ... |
+
+Cross-domain collaboration is not Scenario ownership transfer.
+
+## Boundaries
+
+- Start:
+- End:
+
+## Unresolved
+
+- ...
 
 ## Evidence
+
+- ...

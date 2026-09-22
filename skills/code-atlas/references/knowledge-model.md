@@ -1,61 +1,122 @@
-# Knowledge Model Reference
+# Code Atlas Knowledge Model
 
-## Canonical Model
+## Canonical model
 
 ```text
 Entity + Relation + Evidence
 ```
 
-Business axis:
+## Business hierarchy
 
 ```text
-Business Domain → Capability → Scenario → Process → Sub-process / Step
+Business Domain
+  ↓
+Business Subdomain [optional]
+  ↓
+Capability
+  ↓
+Scenario
+  ↓
+Process
+  ↓
+Sub-process / Step
+  ↓
+Execution Chain
 ```
 
-Technical implementation:
+When no meaningful Subdomain exists:
 
 ```text
-Process / Activity ← Execution Chain
+Domain
+→ Capability
 ```
 
-Object axis:
+Important:
+
+> Subdomain publication is optional, but Subdomain Evaluation is mandatory for every Domain.
+
+## Business Object model
 
 ```text
-Business Object → Lifecycle → State / Transition
+Business Object
+  ↓
+Lifecycle
+  ↓
+State
+  ↓
+State Transition
 ```
 
-Canonical relationship ownership:
+Business Objects may relate to Domain / Subdomain / Capability / Scenario / Process without becoming children in the main hierarchy.
 
-| Relation | Owner |
-|---|---|
-| Domain → Capability | Domain |
-| Scenario → Capability | Scenario |
-| Scenario → Process Flow | Scenario |
-| Process → Sub-process / Step | Process |
-| Process → Business Object | Process |
-| Process / Activity → Transition | Process |
-| Lifecycle → Business Object | Lifecycle |
-| Lifecycle → State / Transition | Lifecycle |
-| Business Object → Table | Business Object |
-| Execution Chain → Process | Execution Chain |
-| Execution Chain → Activity | Execution Chain |
-| Execution Chain → Common Chain | Execution Chain |
+## Independent Markdown entities
 
-Reverse relations are derived.
+Use standalone Markdown for:
 
+- System
+- Project
+- Business Domain
+- Business Object
+- Lifecycle
+- Scenario
+- Process
+- Execution Chain
+- Common Chain
+- Core Business Table when needed
 
+## Embedded stable-ID knowledge
 
-## Shared Semantic Rules
+Keep these embedded by default:
 
-Business-semantic knowledge follows:
+- Business Subdomain
+- Capability
+- Sub-process
+- Step
+- State
+- State Transition
+- Business Rule
+
+Knowledge Entity does not imply Markdown file.
+
+## Main ownership
+
+- System / Project / Module → `ca-project`
+- Domain / Subdomain / Capability / Business Object / Lifecycle → `ca-business`
+- Scenario / Process / Sub-process / Step → `ca-scenario`
+- Execution Chain / Common Chain → `ca-chain`
+
+## Topology convergence
+
+Before publication use:
 
 ```text
-Fact
-→ Candidate
-→ Canonicalize
-→ Verify
-→ Publish
+business-topology-convergence.md
 ```
+
+Required discovery direction:
+
+```text
+Business Actions
+→ Capabilities
+→ Subdomains
+→ Domains
+→ Scenario Enumeration
+```
+
+Required publication direction:
+
+```text
+Domain
+→ Subdomain [optional]
+→ Capability
+→ Scenario
+→ Process
+→ Execution Chain
+```
+
+Do not flatten the default business topology with convenience edges.
+
+## Shared semantic rules
 
 Use:
 
@@ -64,8 +125,13 @@ semantic-canonicalization-protocol.md
 semantic-identity-rules.md
 ```
 
-The protocol defines the flow.
+Canonicalization outcomes remain:
 
-The Identity Rules define, in plain language, when two candidates are the same or different.
+```text
+MERGE
+NEW
+UNRESOLVED
+REJECT
+```
 
-Keep the knowledge model separate from internal analysis mechanics.
+Markdown remains Canonical Knowledge.

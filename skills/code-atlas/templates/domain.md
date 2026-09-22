@@ -1,27 +1,107 @@
 ---
 id: DOMAIN-<domain>
 type: DOMAIN
-source_name: <source>
-business_name: <business name>
+source_name: <evidence-backed source anchor>
+business_name: <business domain name>
 owner: ca-business
-analysis_result: VERIFIED
+analysis_result: VERIFIED|PARTIAL|UNRESOLVED
 ---
 
-# <business name>
+# <Business Domain>
 
-## 业务定位
 
-## 业务边界
+## Responsibility Question
 
-### 包含
+<The one question this Domain primarily answers.>
 
-### 不包含
+Examples for a financial system:
 
-## Capabilities
+```text
+Funds Account
+→ Who owns the money, where is it, how much exists, can it be used?
 
-| ID | source_name | business_name | 业务说明 |
-|---|---|---|---|
+Funds Transaction
+→ Why is money changing; what financial business transaction is occurring?
 
-## 核心 Business Object
+Funds Settlement
+→ How is the established monetary obligation fulfilled from payer to payee?
+```
+
+## Business Responsibility
+
+<The stable business responsibility owned by this Domain.>
+
+## Authoritative Business Objects / Results
+
+- ...
+
+## Ownership Boundary
+
+### Owns
+
+- ...
+
+### Does Not Own
+
+- ...
+
+A capability must not be assigned here merely because it mutates this Domain's data.
+
+
+## Boundary
+
+### Includes
+
+- ...
+
+### Excludes
+
+- ...
+
+## Subdomain Evaluation
+
+Result:
+
+```text
+SUBDOMAINS_REQUIRED | DIRECT_CAPABILITIES | UNRESOLVED
+```
+
+Reason:
+
+<Why this Domain does or does not need Subdomains.>
+
+## Business Topology
+
+When Subdomains are needed:
+
+### `SUBDOMAIN-<domain>-<subdomain>` — <Subdomain Name>
+
+Responsibility:
+
+<Stable internal business responsibility.>
+
+Capabilities:
+
+| Capability ID | Business Name | Business Result |
+|---|---|---|
+| `CAPABILITY-...` | ... | ... |
+
+When no Subdomain is needed, list Capabilities directly.
+
+## Business Objects
+
+- `BUSINESS-OBJECT-...`
+
+## Cross-domain Collaboration
+
+| Collaborating Domain | Why / Capability | Direction |
+|---|---|---|
+| `DOMAIN-...` | ... | calls / called-by / event |
+
+## Unresolved
+
+- ...
 
 ## Evidence
+
+- ...
