@@ -184,39 +184,17 @@ This lists only skills available from `simba1949/code-atlas`.
 
 ## Install
 
-### Interactive installation
+### Project-level installation
 
 ```bash
-npx skills add simba1949/code-atlas
-```
-
-### Install the complete bundle to Codex
-
-```bash
-npx skills add simba1949/code-atlas --skill '*' -a codex -y
-```
-
-### Install the complete bundle to Claude Code
-
-```bash
-npx skills add simba1949/code-atlas --skill '*' -a claude-code -y
-```
-
-### Install to Claude Code and Codex
-
-Recommended:
-
-```bash
-npx skills add simba1949/code-atlas --skill '*' -a claude-code -a codex -y
+npx skills add simba1949/code-atlas --skill '\*' -a claude-code -a codex -y
 ```
 
 ### Global installation
 
 ```bash
-npx skills add simba1949/code-atlas --skill '*' -a claude-code -a codex -g -y
+npx skills add simba1949/code-atlas --skill '\*' -a claude-code -a codex -g -y
 ```
-
-`--skill '*'` applies only to skills discovered from `simba1949/code-atlas`.
 
 ## Update
 

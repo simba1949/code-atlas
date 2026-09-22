@@ -188,39 +188,17 @@ ca-visual
 
 ## 安装
 
-### 交互式安装
+### 项目级安装
 
 ```bash
-npx skills add simba1949/code-atlas
-```
-
-### 安装完整 Code Atlas 到 Codex
-
-```bash
-npx skills add simba1949/code-atlas --skill '*' -a codex -y
-```
-
-### 安装完整 Code Atlas 到 Claude Code
-
-```bash
-npx skills add simba1949/code-atlas --skill '*' -a claude-code -y
-```
-
-### 同时安装到 Claude Code 与 Codex
-
-推荐：
-
-```bash
-npx skills add simba1949/code-atlas --skill '*' -a claude-code -a codex -y
+npx skills add simba1949/code-atlas --skill '\*' -a claude-code -a codex -y
 ```
 
 ### 全局安装
 
 ```bash
-npx skills add simba1949/code-atlas --skill '*' -a claude-code -a codex -g -y
+npx skills add simba1949/code-atlas --skill '\*' -a claude-code -a codex -g -y
 ```
-
-`--skill '*'` 只表示安装 `simba1949/code-atlas` 仓库中的全部 Skill，不会影响用户其他 Skill。
 
 ## 更新
 
